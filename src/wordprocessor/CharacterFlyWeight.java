@@ -1,15 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package wordprocessor;
 
 /**
  *
  * @author Harshil
  */
-public interface CharacterFlyWeight {
+public class CharacterFlyWeight
+{
+    private int codePoint;
+
+    public CharacterFlyWeight(Character inputChar) 
+    {
+        this.codePoint = (int)inputChar;
+    }
+
+    //the equals method is used for the test case so that
+    //we can compare 2 CharacterFlyweight objects
+    @Override
+    public boolean equals(Object obj) {
+        CharacterFlyWeight characterFlyWeight = (CharacterFlyWeight ) obj;
+        
+        if(characterFlyWeight.codePoint ==  this.codePoint)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + this.codePoint;
+        return hash;
+    }
+    
     
 }

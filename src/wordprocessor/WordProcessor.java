@@ -6,8 +6,15 @@
 
 package wordprocessor;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.util.size.SizeofUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,16 +26,56 @@ public class WordProcessor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        ConcreteFont f1 = new ConcreteFont("a", 2, "a");
-        ConcreteFont f2 = new ConcreteFont("a", 2, "a");
-        List<ConcreteFont> ls = new ArrayList<>();
-        ls.add(f2);
-        System.out.println(ls.indexOf(f1));
-        if(ls.contains(f1))
-            System.out.println("TRUE");
-        else
-            System.out.println("false");
+        try {
+//            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Harshil.Harshil-PC\\Desktop\\sample.txt"));
+            InputStream is = new FileInputStream(new File("C:\\Users\\Harshil.Harshil-PC\\Desktop\\sample.txt"));
+            InputStreamReader isr = new InputStreamReader(is , "UTF-8");
+            int  c ;
+            int counter =0;
+                            CharacterFactory charFactory =  CharacterFactory.getObject();
+
+            while( (c = isr.read()) != -1)
+            {
+                
+//                System.out.println((int) c +" "+ (char)c+" "+ counter++);
+//                System.out.println((char)c+"-"+(int) c +"-"+ counter++);
+                charFactory.getCharacter((char)c);
+                
+//                counter++;
+            }
+            System.out.println("\n"+counter);
+            isr.close();
+            
+            is.close();
+            
+//            System.out.println(charFactory.getCharacterMap().keySet().size());
+            getSize();
+//            String currentLine =null;
+//            while((currentLine= br.readLine()) != null)
+//            {
+//                System.out.println(currentLine);
+//            }
+//            br.close();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(WordProcessor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WordProcessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
-    
+    public static  void getSize( )
+    {
+        System.out.printf("The average size of an Array", new SizeofUtil()
+        { 
+//            CharacterFactory obj = null;
+            FontFactory f =null;
+            @Override 
+            protected int create() 
+            { 
+                f = FontFactory.getObject();
+                return 1; 
+            }
+        }.averageBytes());
+    }
 }
